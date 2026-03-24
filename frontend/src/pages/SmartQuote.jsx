@@ -6,7 +6,7 @@ import {
 
 const UNITS     = ['Nos', 'Kg', 'Ltrs', 'Pcs', 'Box', 'Set', 'Mtr', 'Sqft'];
 const GST_RATES = [0, 5, 12, 18, 28];
-const API_BASE      = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+const API_BASE      = import.meta.env.VITE_API_URL;
 const API_URL       = `${API_BASE}/smart-quote`;
 const PRODUCTS_URL  = `${API_BASE}/products`;
 
