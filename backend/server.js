@@ -36,13 +36,14 @@ try {
     console.warn('⚠️  rankVendors disabled:', e.message);
 }
 
-// ── Connect DB & seed demo data ───────────────────────────────────────────────
-connectDB().then(() => seedDemoData());
-
 // ── Express app ───────────────────────────────────────────────────────────────
 const app = express();
 app.use(cors({
-    origin: ['http://localhost:5173', 'https://vendor-mangaement-1.onrender.com'],
+    origin: [
+        'http://localhost:5173',
+        'https://vendor-mangaement-1.onrender.com',
+        'https://supplier-managemnt.vercel.app',
+    ],
     credentials: true,
 }));
 app.use(express.json());
@@ -101,4 +102,14 @@ app.use((_req, res) => res.status(404).json({ message: 'Route not found.' }));
 app.use((err, _req, res, _next) => res.status(err.status || 500).json({ message: err.message || 'Internal server error.' }));
 
 const PORT = process.env.PORT || 8000;
-app.listen(PORT, () => console.log(`\n🚀 VMS API → http://localhost:${PORT}\n`));
+
+async function start() {
+    await connectDB();
+    await seedDemoData();
+    app.listen(PORT, () => console.log(`\n🚀 VMS API → http://localhost:${PORT}\n`));
+}
+
+start().catch((err) => {
+    console.error('Failed to start server:', err);
+    process.exit(1);
+});
