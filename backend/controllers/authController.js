@@ -7,6 +7,8 @@ const VendorProfile = require('../models/VendorProfile');
 const signToken = (id) =>
     jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '7d' });
 
+const normalizeEmail = (email) => String(email || '').toLowerCase().trim();
+
 const formatUser = (user) => ({
     _id:      user._id,
     name:     user.name,
@@ -22,7 +24,8 @@ const formatUser = (user) => ({
 // Body: { name, email, password, userRole }
 const register = async (req, res) => {
     try {
-        const { name, email, password, userRole = 'client' } = req.body;
+        const { name, password, userRole = 'client' } = req.body;
+        const email = normalizeEmail(req.body.email);
 
         if (!name || !email || !password)
             return res.status(400).json({ message: 'Name, email, and password are required.' });
@@ -62,7 +65,8 @@ const register = async (req, res) => {
 // Body: { email, password }
 const login = async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { password } = req.body;
+        const email = normalizeEmail(req.body.email);
 
         if (!email || !password)
             return res.status(400).json({ message: 'Email and password are required.' });
