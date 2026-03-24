@@ -6,8 +6,9 @@ import {
 
 const UNITS     = ['Nos', 'Kg', 'Ltrs', 'Pcs', 'Box', 'Set', 'Mtr', 'Sqft'];
 const GST_RATES = [0, 5, 12, 18, 28];
-const API_URL        = 'http://localhost:8000/api/smart-quote';
-const PRODUCTS_URL   = 'http://localhost:8000/api/products';
+const API_BASE      = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+const API_URL       = `${API_BASE}/smart-quote`;
+const PRODUCTS_URL  = `${API_BASE}/products`;
 
 const COLORS = [
     { bg: 'bg-indigo-50',  text: 'text-indigo-700',  header: 'bg-indigo-600',  badge: 'bg-indigo-100 text-indigo-700',  dot: 'bg-indigo-500',  border: 'border-indigo-200'  },

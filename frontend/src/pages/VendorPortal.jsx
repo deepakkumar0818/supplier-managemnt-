@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Store, CheckCircle, AlertCircle, Loader2, Save, Tag, Phone, MapPin, FileText, User } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
-const API = 'http://localhost:8000/api';
+const API = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
 
 const ALL_CATEGORIES = [
     'Electronics & Electrical',
