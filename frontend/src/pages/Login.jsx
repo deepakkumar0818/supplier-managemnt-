@@ -34,10 +34,11 @@ export default function LoginPage() {
         }
         setLoading(true);
         try {
-            // On login, backend auto-returns role — no need to pass it
-            const result = tab === 'login'
-                ? await login(form.email, form.password)
-                : await register(form.name, form.email, form.password, role);
+            if (tab === 'login') {
+                await login(form.email, form.password);
+            } else {
+                await register(form.name, form.email, form.password, role);
+            }
             await fetchAllData();
             navigate('/dashboard');
         } catch (err) {
